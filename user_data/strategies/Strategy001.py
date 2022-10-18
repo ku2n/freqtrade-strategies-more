@@ -125,6 +125,6 @@ class Strategy001(IStrategy):
 
         dataframe.loc[
             (
-                
+
             )
-        ]
+        'enter_short'] = 1
