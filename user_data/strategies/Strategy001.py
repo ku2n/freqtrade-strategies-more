@@ -120,3 +120,11 @@ class Strategy001(IStrategy):
             ),
             'exit_long'] = 1
         return dataframe
+
+    def populate_entry_short_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+
+        dataframe.loc[
+            (
+                
+            )
+        ]
