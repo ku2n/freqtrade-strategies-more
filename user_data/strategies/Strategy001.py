@@ -112,10 +112,9 @@ class Strategy001(IStrategy):
 
         return dataframe
 
-"""
-
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         
+        """
         Based on TA indicators, populates the sell signal for the given dataframe
         :param dataframe: DataFrame
         :return: DataFrame with buy column
@@ -135,8 +134,18 @@ class Strategy001(IStrategy):
             'exit_short'] = 1
 
         return dataframe
+        """
+        return dataframe
 
-어차피 스탑로스 걸어놓으니까 포시션 정리할 필요가 없을듯
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        return dataframe
+
+
+"""
+(2022/10/19-20:35) {
+    OperationalException: `populate_exit_trend` or `populate_sell_trend` must be implemented.
+    무조건 선언해두라고 해서 야매로 선언해두었음
+}
 
 """
             
