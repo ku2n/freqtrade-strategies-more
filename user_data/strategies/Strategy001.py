@@ -113,17 +113,16 @@ class Strategy001(IStrategy):
             File "/home/kun/freqtrade/.env/lib/python3.9/site-packages/pandas/core/indexing.py", line 2581, in convert_missing_indexer
             raise KeyError("cannot use a single bool to index into setitem")
 
-            pandas.loc[True, "something"]에서 모두 고를때 True, False는 안먹히는듯.
-            pandas.loc[(), "something"]로 바꿔서 해결했음.
+            pandas.loc[True, "enter_long"] => pandas.loc[(), "enter_short"]
         }
         """
 
         if(self.N % 2 == 0) :
-            dataframe.loc[True, 'enter_long'] = 1
+            dataframe.loc[(), 'enter_long'] = 1
             self.N += 1
         
         else :
-            dataframe.loc[True, 'enter_short'] = 1
+            dataframe.loc[(), 'enter_short'] = 1
             self.N += 1
 
         return dataframe
@@ -160,7 +159,7 @@ class Strategy001(IStrategy):
 """
 (2022/10/19) {
     OperationalException: `populate_exit_trend` or `populate_sell_trend` must be implemented.
-    무조건 선언해두라고 해서 야매로 선언해두었음
+    무조건 선언해두라고 해서 야매로 선언
 }
 """
             
