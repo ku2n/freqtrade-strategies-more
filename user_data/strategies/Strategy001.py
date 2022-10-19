@@ -11,8 +11,7 @@ import freqtrade.vendor.qtpylib.indicators as qtpylib
 
 
 class Strategy001(IStrategy):
-
-    self.N = 1
+    N = 1
 
     """
     Strategy 001
@@ -112,13 +111,13 @@ class Strategy001(IStrategy):
         }
         """
 
-        if(self.N % 2 == 0) :
+        if(fN % 2 == 0) :
             dataframe.loc[True, 'enter_long'] = 1
             self.N += 1
         
         else :
             dataframe.loc[True, 'enter_short'] = 1
-            self.N += 1
+            N += 1
 
         return dataframe
 
@@ -156,6 +155,5 @@ class Strategy001(IStrategy):
     OperationalException: `populate_exit_trend` or `populate_sell_trend` must be implemented.
     무조건 선언해두라고 해서 야매로 선언해두었음
 }
-
 """
             
