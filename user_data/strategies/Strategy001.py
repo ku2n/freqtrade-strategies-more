@@ -12,7 +12,7 @@ import freqtrade.vendor.qtpylib.indicators as qtpylib
 
 class Strategy001(IStrategy):
 
-    N = 1
+    self.N = 1
 
     """
     Strategy 001
@@ -100,15 +100,25 @@ class Strategy001(IStrategy):
         Based on TA indicators, populates the buy signal for the given dataframe
         :param dataframe: DataFrame
         :return: DataFrame with buy column
+
+        (2022/10/19) {
+            File "/home/kun/freqtrade-strategies-more/user_data/strategies/Strategy001.py", line 105, in populate_entry_trend
+                if(N % 2 == 0) :
+            UnboundLocalError: local variable 'N' referenced before assignment
+            
+            지역변수를 전역 변수처럼 썻기 때문 에러...?
+            더 연구해봐야 할 것 같습니다.
+            N을 self.N으로 바꿔서 해결했음.
+        }
         """
 
-        if(N % 2 == 0) :
+        if(self.N % 2 == 0) :
             dataframe.loc[True, 'enter_long'] = 1
-            N += 1
+            self.N += 1
         
         else :
             dataframe.loc[True, 'enter_short'] = 1
-            N += 1
+            self.N += 1
 
         return dataframe
 
@@ -142,7 +152,7 @@ class Strategy001(IStrategy):
 
 
 """
-(2022/10/19-20:35) {
+(2022/10/19) {
     OperationalException: `populate_exit_trend` or `populate_sell_trend` must be implemented.
     무조건 선언해두라고 해서 야매로 선언해두었음
 }
