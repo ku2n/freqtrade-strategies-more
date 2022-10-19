@@ -114,7 +114,7 @@ class Strategy001(IStrategy):
             raise KeyError("cannot use a single bool to index into setitem")
 
             pandas.loc[True, "something"]에서 모두 고를때 True, False는 안먹히는듯.
-            pandas.loc[[], "something"]으로 바꿔서 해결했음.
+            pandas.loc[(), "something"]으로 바꿔서 해결했음.
         }
         """
 
