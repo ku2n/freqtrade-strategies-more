@@ -11,6 +11,9 @@ import freqtrade.vendor.qtpylib.indicators as qtpylib
 
 
 class Strategy001(IStrategy):
+
+    N = 1
+
     """
     Strategy 001
     author@: Gerald Lonlas
@@ -99,11 +102,13 @@ class Strategy001(IStrategy):
         :return: DataFrame with buy column
         """
 
-        if() :
+        if(N % 2 == 0) :
             dataframe.loc[True, 'enter_long'] = 1
+            N += 1
         
         else :
             dataframe.loc[True, 'enter_short'] = 1
+            N += 1
 
         return dataframe
 
