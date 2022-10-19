@@ -119,11 +119,11 @@ class Strategy001(IStrategy):
         """
 
         if(self.N % 2 == 0) :
-            dataframe.loc[(), 'enter_long'] = 1
+            dataframe.loc[True, 'enter_long'] = 1
             self.N += 1
         
         else :
-            dataframe.loc[(), 'enter_short'] = 1
+            dataframe.loc[True, 'enter_short'] = 1
             self.N += 1
 
         return dataframe
