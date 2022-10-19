@@ -104,6 +104,12 @@ class Strategy001(IStrategy):
             ),
             'enter_long'] = 1
 
+        dataframe.loc[
+            (
+                  
+            ),
+            'enter_short'] = 1
+
         return dataframe
 
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
@@ -119,12 +125,14 @@ class Strategy001(IStrategy):
                 (dataframe['ha_open'] > dataframe['ha_close'])  # red bar
             ),
             'exit_long'] = 1
-        return dataframe
-
-    def populate_entry_short_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
         dataframe.loc[
             (
 
-            )
-        'enter_short'] = 1
+            ),
+            'exit_short'] = 1
+
+        return dataframe
+
+
+            
