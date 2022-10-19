@@ -108,14 +108,22 @@ class Strategy001(IStrategy):
             class 변수를 glboal 변수처럼 사용했기 때문 에러.
             N을 self.N으로 바꿔서 해결했음.
         }
+
+        (2022/10/19) {
+            File "/home/kun/freqtrade/.env/lib/python3.9/site-packages/pandas/core/indexing.py", line 2581, in convert_missing_indexer
+            raise KeyError("cannot use a single bool to index into setitem")
+
+            pandas.loc[True, "something"]에서 모두 고를때 True, False는 안먹히는듯.
+            pandas.loc[:, "something"]으로 바꿔서 해결했음.
+        }
         """
 
         if(self.N % 2 == 0) :
-            dataframe.loc[True, 'enter_long'] = 1
+            dataframe.loc[:, 'enter_long'] = 1
             self.N += 1
         
         else :
-            dataframe.loc[True, 'enter_short'] = 1
+            dataframe.loc[:, 'enter_short'] = 1
             self.N += 1
 
         return dataframe
