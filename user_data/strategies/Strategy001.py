@@ -44,7 +44,7 @@ class Strategy001(IStrategy):
     # trailing stoploss
     trailing_stop = True
     trailing_stop_positive = 0.02
-    trailing_stop_positive_offset = 0.02 # 이건 보니까 최소 몇 퍼센트 올라와야지 그때부터 스탑로스가 걸리게 하는 거 인듯
+    trailing_stop_positive_offset = 0.0 # 이건 보니까 최소 몇 퍼센트 올라와야지 그때부터 스탑로스가 걸리게 하는 거 인듯
 
     # run "populate_indicators" only for new candle
     process_only_new_candles = False
