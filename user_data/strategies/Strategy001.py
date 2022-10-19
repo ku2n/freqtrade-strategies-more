@@ -39,7 +39,7 @@ class Strategy001(IStrategy):
     stoploss = -0.02
 
     # Optimal timeframe for the strategy
-    timeframe = '1m'
+    timeframe = '5m'
 
     # trailing stoploss
     trailing_stop = True
