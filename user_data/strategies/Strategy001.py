@@ -106,7 +106,7 @@ class Strategy001(IStrategy):
                 if(N % 2 == 0) :
             UnboundLocalError: local variable 'N' referenced before assignment
             
-            지역변수를 전역 변수처럼 썻기 때문 에러...?
+            전역변수 관련 에러...?
             더 연구해봐야 할 것 같습니다.
             N을 self.N으로 바꿔서 해결했음.
         }
