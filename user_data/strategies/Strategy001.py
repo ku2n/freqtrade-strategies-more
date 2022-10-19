@@ -23,38 +23,40 @@ class Strategy001(IStrategy):
     INTERFACE_VERSION: int = 3
     # Minimal ROI designed for the strategy.
     # This attribute will be overridden if the config file contains "minimal_roi"
+    """
     minimal_roi = {
         "60":  0.01,
         "30":  0.03,
         "20":  0.04,
         "0":  0.05
     }
+    """
 
     # Optimal stoploss designed for the strategy
     # This attribute will be overridden if the config file contains "stoploss"
-    stoploss = -0.10
+    stoploss = -0.02
 
     # Optimal timeframe for the strategy
-    timeframe = '5m'
+    timeframe = '1m'
 
     # trailing stoploss
-    trailing_stop = False
-    trailing_stop_positive = 0.01
-    trailing_stop_positive_offset = 0.02
+    trailing_stop = True
+    trailing_stop_positive = 0.02
+    trailing_stop_positive_offset = 0.0 # 이건 보니까 최소 몇 퍼센트 올라와야지 그때부터 스탑로스가 걸리게 하는 거 인듯
 
     # run "populate_indicators" only for new candle
     process_only_new_candles = False
 
     # Experimental settings (configuration will overide these if set)
     use_exit_signal = True
-    exit_profit_only = True
-    ignore_roi_if_entry_signal = False
+    exit_profit_only = False
+    ignore_roi_if_entry_signal = True
 
     # Optional order type mapping
     order_types = {
         'entry': 'limit',
         'exit': 'limit',
-        'stoploss': 'market',
+        'stoploss': 'market',  # 이거 entry 가격으로 바꿔야함
         'stoploss_on_exchange': False
     }
 
@@ -96,28 +98,23 @@ class Strategy001(IStrategy):
         :param dataframe: DataFrame
         :return: DataFrame with buy column
         """
-        dataframe.loc[
-            (
-                qtpylib.crossed_above(dataframe['ema20'], dataframe['ema50']) &
-                (dataframe['ha_close'] > dataframe['ema20']) &
-                (dataframe['ha_open'] < dataframe['ha_close'])  # green bar
-            ),
-            'enter_long'] = 1
 
-        dataframe.loc[
-            (
-                  
-            ),
-            'enter_short'] = 1
+        if() :
+            dataframe.loc[True, 'enter_long'] = 1
+        
+        else :
+            dataframe.loc[True, 'enter_short'] = 1
 
         return dataframe
 
+"""
+
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        """
+        
         Based on TA indicators, populates the sell signal for the given dataframe
         :param dataframe: DataFrame
         :return: DataFrame with buy column
-        """
+        
         dataframe.loc[
             (
                 qtpylib.crossed_above(dataframe['ema50'], dataframe['ema100']) &
@@ -134,5 +131,7 @@ class Strategy001(IStrategy):
 
         return dataframe
 
+어차피 스탑로스 걸어놓으니까 포시션 정리할 필요가 없을듯
 
+"""
             
