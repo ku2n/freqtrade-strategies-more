@@ -116,16 +116,18 @@ class StrategyMain(IStrategy):
             pandas.loc[True, "enter_long"] => pandas.loc[(), "enter_short"]
         }
         """
+        if() :
+            dataframe.loc[(
+                (dataframe['exit_short'] = 1) |
+                (dataframe['enter_short'] = 1)    
+            ), 
+            'enter_long'] = 1
 
-        dataframe.loc[(
-            (dataframe['exit_short'] = 1)
-        ), 
-        'enter_long'] = 1
-
-        dataframe.loc[(
-            (dataframe['exit_long'] = 1) 
-        ), 
-        'enter_short'] = 1
+            dataframe.loc[(
+                (dataframe['exit_long'] = 1) |
+                (dataframe['enter_long'] = 1)
+            ), 
+            'enter_short'] = 1
         
 
         return dataframe
