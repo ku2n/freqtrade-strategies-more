@@ -116,6 +116,7 @@ class StrategyMain(IStrategy):
             pandas.loc[True, "enter_long"] => pandas.loc[(), "enter_short"]
         }
         """
+
         dataframe.loc[(
             (dataframe['exit_short'] = 1)
         ), 
@@ -139,7 +140,7 @@ class StrategyMain(IStrategy):
         dataframe.loc[
             (
                 (dataframe['enter_long'] = 1) &
-                ()
+                (dataframe['open'] > dataframe['c'])
             ),
             'exit_long'] = 1
 
@@ -158,37 +159,3 @@ class StrategyMain(IStrategy):
     무조건 선언해두라고 해서 야매로 선언
 }
 """
-
-def create_stoploss_order(self, trade: Trade, stop_price: float) -> bool:
-        """
-        Abstracts creating stoploss orders from the logic.
-        Handles errors and updates the trade database object.
-        Force-sells the pair (using EmergencySell reason) in case of Problems creating the order.
-        :return: True if the order succeeded, and False in case of problems.
-        """
-
-        try:
-            stoploss_order = self.exchange.stoploss(pair=trade.pair, amount=trade.amount,
-                                                    stop_price=stop_price,
-                                                    order_types=self.strategy.order_types)
-
-            order_obj = Order.parse_from_ccxt_object(stoploss_order, trade.pair, 'stoploss')
-            trade.orders.append(order_obj)
-            trade.stoploss_order_id = str(stoploss_order['id'])
-            return True
-        except InsufficientFundsError as e:
-            logger.warning(f"Unable to place stoploss order {e}.")
-            # Try to figure out what went wrong
-            self.handle_insufficient_funds(trade)
-
-        except InvalidOrderException as e:
-            trade.stoploss_order_id = None
-            logger.error(f'Unable to place a stoploss order on exchange. {e}')
-            logger.warning('Exiting the trade forcefully')
-            self.execute_trade_exit(trade, trade.stop_loss, sell_reason=SellCheckTuple(
-                sell_type=SellType.EMERGENCY_SELL))
-
-        except ExchangeError:
-            trade.stoploss_order_id = None
-            logger.exception('Unable to place a stoploss order on exchange.')
-        return False
