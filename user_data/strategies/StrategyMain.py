@@ -65,13 +65,13 @@ class StrategyMain(IStrategy):
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         
         if self.side_positive == True :
-            if self.last_profit == -0.02 | self.last_profit == self.stoploss + 0.001 :
+            if (self.last_profit == -0.02) | (self.last_profit == self.stoploss + 0.001) :
                 dataframe.loc[(), 'exit_long'] = 1
                 if dataframe['exit_long'] == 1 :
                     self.in_position = False
                     self.side_positive = False
         else :
-            if self.last_profit == -0.02 | self.last_profit == self.stoploss + 0.001 :
+            if (self.last_profit == -0.02) | (self.last_profit == self.stoploss + 0.001) :
                 dataframe.loc[(), 'exit_long'] = 1
                 if dataframe['exit_long'] == 1 :
                     self.in_position = False
