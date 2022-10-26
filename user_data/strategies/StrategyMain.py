@@ -54,9 +54,9 @@ class StrategyMain(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         if not self.in_position:
             if self.side_positive:
-                dataframe.loc[0, 'enter_long'] = 1
+                dataframe.loc[(dataframe['open'] > 0), 'enter_long'] = 1
             else:
-                dataframe.loc[0, 'enter_short'] = 1
+                dataframe.loc[(dataframe['open'] > 0), 'enter_short'] = 1
             self.in_position = True            
 
         return dataframe
@@ -67,14 +67,14 @@ class StrategyMain(IStrategy):
         
         if self.side_positive == True :
             if (self.last_profit == -0.02) | (self.last_profit == self.stoploss + 0.001) :
-                dataframe.loc[0, 'exit_long'] = 1
-                if dataframe[0, 'exit_long'] == 1 :
+                dataframe.loc[(dataframe['open'] > 0), 'exit_long'] = 1
+                if dataframe[(dataframe['open'] > 0), 'exit_long'] == 1 :
                     self.in_position = False
                     self.side_positive = False
         else :
             if (self.last_profit == -0.02) | (self.last_profit == self.stoploss + 0.001) :
-                dataframe.loc[0, 'exit_long'] = 1
-                if dataframe[0, 'exit_long'] == 1 :
+                dataframe.loc[(dataframe['open'] > 0), 'exit_long'] = 1
+                if dataframe[(dataframe['open'] > 0), 'exit_long'] == 1 :
                     self.in_position = False
                     self.side_positive = True
 
