@@ -63,6 +63,7 @@ class StrategyMain(IStrategy):
 
 
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        print(dataframe)
         
         if self.side_positive == True :
             if (self.last_profit == -0.02) | (self.last_profit == self.stoploss + 0.001) :
