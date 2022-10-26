@@ -32,7 +32,10 @@ class StrategyMain(IStrategy):
     # Optional order type mapping
     order_types = {
         'entry': 'limit',
-        'exit': 'limit'
+        'exit': 'limit',
+        'stoploss': 'market',
+        'stoploss_on_exchange': False,
+        'stoploss_on_exchange_interval': 60
     }
 
     def informative_pairs(self):
