@@ -50,33 +50,50 @@ class StrategyMain(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         if not self.in_position:
             if self.side_positive:
-                dataframe.loc[(), 'enter_long'] = True
+                dataframe.loc[(), 'enter_long'] = 1
             else:
-                dataframe.loc[(), 'enter_short'] = True
+                dataframe.loc[(), 'enter_short'] = 1
             self.in_position = True            
 
         return dataframe
 
 
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        
+        if side_positive == True :
+            dataframe.loc[(
+                (current_profit == -0.02 ) |
+                (current_profit == custom_stoploss + 0.001)
+            ), 'exit_long'] = 1
+            if dataframe('exit_long') == 1 :
+                in_position = False
+                side_positive = False
+        else :
+            dataframe.loc[(
+                (current_profit == -0.02 ) |
+                (current_profit == custom_stoploss + 0.001)
+            ), 'exit_long'] = 1
+            if dataframe('exit_long') == 1 :
+                in_position = False
+                side_positive = True
+
         return DataFrame
 
     def custom_stoploss(self, pair: str, trade: 'Trade', current_time: datetime,
                         current_rate: float, current_profit: float, **kwargs) -> float:
             
 
-        self.in_position = False
+       """ self.in_position = False
         if self.side_positive:
             self.side_positive = False
         else:
-            self.side_positive = True
+            self.side_positive = True"""
+        if self.in_position : 
+            if current_profit < 0.02
+                return -0.021
 
-        if current_profit < 0.02:
+            else :
+                desired_stoploss = current_profit - 0.021
+                return desired_stoploss
 
-            return -0.02 # return a value bigger than the initial stoploss to keep using the initial stoploss
-
-            # After reaching the desired offset, allow the stoploss to trail by half the profit
-        desired_stoploss = current_profit - 0.02
-
-            # Use a minimum of 2.5% and a maximum of 5%
-        return desired_stoploss
+        return 1
