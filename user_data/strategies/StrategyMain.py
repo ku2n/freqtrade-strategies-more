@@ -29,6 +29,8 @@ class StrategyMain(IStrategy):
     exit_profit_only = False
     ignore_roi_if_entry_signal = True
 
+    stoploss = - 0.02
+
     # Optional order type mapping
     order_types = {
         'entry': 'limit',
