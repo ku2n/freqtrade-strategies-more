@@ -24,9 +24,6 @@ class StrategyMain(IStrategy):
     # Optimal timeframe for the strategy
     timeframe = '1m'
 
-    # run "populate_indicators" only for new candle
-    process_only_new_candles = False
-
     # Experimental settings (configuration will overide these if set)
     use_exit_signal = True
     exit_profit_only = False
