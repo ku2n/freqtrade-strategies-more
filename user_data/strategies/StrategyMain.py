@@ -14,8 +14,10 @@ from freqtrade.persistence import Trade
 class StrategyMain(IStrategy):
     INTERFACE_VERSION: int = 3
 
+    last_profit = -0.02
+
     # 커스텀
-    in_position = False
+    in_position = True
     side_positive = True # True = 롱, False = 숏
 
     # 커스텀 스탑로스
@@ -64,16 +66,16 @@ class StrategyMain(IStrategy):
         
         if self.side_positive == True :
             dataframe.loc[(
-                (current_profit == -0.02 ) |
-                (current_profit == custom_stoploss + 0.001)
+                (self.last_profit == -0.02 ) |
+                (self.last_profit == custom_stoploss + 0.001)
             ), 'exit_long'] = 1
             if dataframe('exit_long') == 1 :
                 self.in_position = False
                 self.side_positive = False
         else :
             dataframe.loc[(
-                (current_profit == -0.02 ) |
-                (current_profit == custom_stoploss + 0.001)
+                (self.last_profit == -0.02 ) |
+                (self.last_profit == custom_stoploss + 0.001)
             ), 'exit_long'] = 1
             if dataframe('exit_long') == 1 :
                 self.in_position = False
@@ -84,6 +86,8 @@ class StrategyMain(IStrategy):
     def custom_stoploss(self, pair: str, trade: 'Trade', current_time: datetime,
                         current_rate: float, current_profit: float, **kwargs) -> float:
             
+        self.last_profit = current_profit
+
         if self.in_position : 
             if current_profit < 0.02 :
                 return -0.021
