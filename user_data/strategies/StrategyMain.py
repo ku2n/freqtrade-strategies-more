@@ -7,6 +7,7 @@ from pandas import DataFrame
 
 import talib.abstract as ta
 import freqtrade.vendor.qtpylib.indicators as qtpylib
+from datetime import datetime, timedelta
 from freqtrade.persistence import Trade
 
 
@@ -81,14 +82,8 @@ class StrategyMain(IStrategy):
     def custom_stoploss(self, pair: str, trade: 'Trade', current_time: datetime,
                         current_rate: float, current_profit: float, **kwargs) -> float:
             
-
-       """ self.in_position = False
-        if self.side_positive:
-            self.side_positive = False
-        else:
-            self.side_positive = True"""
         if self.in_position : 
-            if current_profit < 0.02
+            if current_profit < 0.02 :
                 return -0.021
 
             else :
