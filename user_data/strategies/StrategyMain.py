@@ -66,16 +66,16 @@ class StrategyMain(IStrategy):
         
         if self.side_positive == True :
             dataframe.loc[(
-                """(self.last_profit == -0.02 ) |
-                (self.last_profit == self.stoploss + 0.001)"""
+                (self.last_profit == -0.02 ) |
+                (self.last_profit == self.stoploss + 0.001)
             ), 'exit_long'] = 1
             if dataframe['exit_long'] == 1 :
                 self.in_position = False
                 self.side_positive = False
         else :
             dataframe.loc[(
-                """(self.last_profit == -0.02 ) |
-                (self.last_profit == self.stoploss + 0.001)"""
+                (self.last_profit == -0.02 ) |
+                (self.last_profit == self.stoploss + 0.001)
             ), 'exit_long'] = 1
             if dataframe['exit_long'] == 1 :
                 self.in_position = False
